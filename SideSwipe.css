@@ -1,0 +1,58 @@
+.SideSwipe {
+    background-color: #32394A;
+    overflow: hidden;
+}
+
+.SideSwipe.SideSwipe-moving {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+}
+
+.SideSwipe .SideSwipe-panel {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    width: 82%;
+    height: 100%;
+    background-color: inherit;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.SideSwipe .SideSwipe-panel.SideSwipe-left {
+    left: 0;
+}
+
+/* shift right when not open to avoid catching events (seems to be a bug in iOS) */
+.SideSwipe .SideSwipe-panel.SideSwipe-right {
+    right: 100%;
+}
+.SideSwipe .SideSwipe-panel.SideSwipe-right.SideSwipe-open {
+    right: 0;
+}
+
+.SideSwipe .SideSwipe-panel.SideSwipe-open {
+    z-index: 1;
+}
+
+.SideSwipe .SideSwipe-panel.SideSwipe-left,
+.SideSwipe .SideSwipe-panel.SideSwipe-right {
+    color: white;
+    text-shadow: 0 1px 0 #32394A;
+}
+
+.SideSwipe .SideSwipe-panel.SideSwipe-main {
+    z-index: 2;
+    background-color: white;
+    left: 0;
+    width: 100%;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.SideSwipe.SideSwipe-transition .SideSwipe-panel.SideSwipe-main {
+    -webkit-transition-duration: 200ms;
+    -webkit-transition-timing-function: linear;
+}
