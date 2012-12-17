@@ -17,6 +17,9 @@
     width: 82%;
     height: 100%;
     background-color: inherit;
+}
+
+.overthrow-enabled .overthrow {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }

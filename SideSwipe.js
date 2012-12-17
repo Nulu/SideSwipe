@@ -193,9 +193,9 @@
         // get references to container and panels.
         container = $('.SideSwipe').first();
         panels = {
-            main: container.find('.SideSwipe-panel.SideSwipe-main').first(),
-            left: container.find('.SideSwipe-panel.SideSwipe-left').first(),
-            right: container.find('.SideSwipe-panel.SideSwipe-right').first()
+            main: container.find('.SideSwipe-panel.SideSwipe-main').first().addClass('overthrow'),
+            left: container.find('.SideSwipe-panel.SideSwipe-left').first().addClass('overthrow'),
+            right: container.find('.SideSwipe-panel.SideSwipe-right').first().addClass('overthrow')
         };
 
         // when a side panel is fully open, a tap on the visible
