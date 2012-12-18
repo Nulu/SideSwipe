@@ -26,14 +26,17 @@
     var transition = false;
     var container, panels; // initialized on document ready
 
+    function clearOpenedState() {
+        panels.right.removeClass('SideSwipe-open');
+        panels.left.removeClass('SideSwipe-open');
+        opened = false;
+    }
+
     function open(panel) {
         if (opened !== false && opened[0] !== panel[0]) return;
 
-        // ensure the right panel does not have the open class
-        // when we're opening the left panel.
-        if (opened[0] !== panels.right[0]) {
-            panels.right.removeClass('SideSwipe-open');
-        }
+        // ensure the opposite panel does not have the open class.
+        clearOpenedState();
 
         opened = panel.addClass('SideSwipe-open');
 
@@ -65,10 +68,7 @@
             .one(transitionEndEvent, function() {
                 if (transition === 'close') {
                     container.removeClass('SideSwipe-transition');
-                    if (opened !== false) {
-                        opened.removeClass('SideSwipe-open');
-                        opened = false;
-                    }
+                    clearOpenedState();
                     transition = false;
                 }
             });
