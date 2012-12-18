@@ -182,11 +182,15 @@
             } else {
                 var fraction = Math.abs(this.boundedX()) / this.max;
                 
-                // flip fraction when already open
-                if (opened !== false) fraction = 1.0 - fraction;
+                // flip fraction logic when already open
+                if (opened !== false) {
+                    if (fraction > 0.3) close();
+                    else open(this.panel);
 
-                if (fraction > 0.3) open(this.panel);
-                else close();
+                } else {
+                    if (fraction > 0.3) open(this.panel);
+                    else close();
+                }
             }
 
             this.panel = undefined;
