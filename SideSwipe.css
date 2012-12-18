@@ -63,6 +63,14 @@
     -webkit-transition-property: -webkit-transform;
 }
 
+/* Workaround for an Android bug. Without this, the main panel's
+ * children blocks don't use the full width available.
+ */
+.SideSwipe .SideSwipe-panel.SideSwipe-main > * {
+    background-color: inherit;
+    overflow: auto;
+}
+
 .SideSwipe.SideSwipe-transition .SideSwipe-panel.SideSwipe-main {
     -webkit-transition-duration: 200ms;
     -webkit-transition-timing-function: linear;
