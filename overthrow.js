@@ -296,7 +296,7 @@
 							}
 							// This bubbling is dumb. Needs a rethink.
 							else {
-								changeScrollTarget( touchStartE );
+								// changeScrollTarget( touchStartE );
 							}
 							
 							// If down and lastDown are inequal, the y scroll has changed direction. Reset tracking.
