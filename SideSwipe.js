@@ -167,7 +167,7 @@
     };
 
     State.prototype.finish = function(event) {
-        if (this.scrolling || this.panel) 
+        if (this.scrolling || this.panel)
             event.preventDefault();
 
         if (this.panel) {
@@ -221,33 +221,35 @@
             }
         });
 
-        container.bind('touchstart', function(event) {
-            if (moving) return;
+        $.each(panels, function(name, panel) {
+            panel.bind('touchstart', function(event) {
+                if (moving) return;
 
-            moving = true;
-            container.addClass('SideSwipe-moving');
+                moving = true;
+                container.addClass('SideSwipe-moving');
 
-            var state = new State(event);
+                var state = new State(event);
 
-            function cleanup() {
-                container
-                    .unbind('touchmove', movement)
-                    .removeClass('SideSwipe-moving');
-                state = undefined;
-                moving = false;
-            }
+                function cleanup() {
+                    panel
+                        .unbind('touchmove', movement)
+                        .removeClass('SideSwipe-moving');
+                    state = undefined;
+                    moving = false;
+                }
 
-            function movement(event) {
-                state.update(event);
-                if (state.scrolling) cleanup();
-            }
+                function movement(event) {
+                    state.update(event);
+                    if (state.scrolling) cleanup();
+                }
 
-            container
-                .bind('touchmove', movement)
-                .one('touchend', function(event) {
-                    if (state) state.finish(event);
-                    cleanup();
-                });
+                panel
+                    .bind('touchmove', movement)
+                    .one('touchend', function(event) {
+                        if (state) state.finish(event);
+                        cleanup();
+                    });
+            });
         });
 
         // bind real functions to public API.

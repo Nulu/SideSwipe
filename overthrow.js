@@ -284,7 +284,8 @@
 					
 						// Touchmove handler
 						move = function( e ){
-						
+							if (e.defaultPrevented) return;
+							
 							var ty = scrollT + startY - e.touches[ 0 ].pageY,
 								tx = scrollL + startX - e.touches[ 0 ].pageX,
 								down = ty >= ( lastTops.length ? lastTops[ 0 ] : 0 ),
@@ -331,7 +332,7 @@
 						// Touchend handler
 						end = function( e ){
 							// Apply momentum based easing for a graceful finish
-							finishScroll();	
+							if (!e.defaultPrevented) finishScroll();
 							// Bring the pointers back
 							setPointers( "auto" );
 							setTimeout( function(){
