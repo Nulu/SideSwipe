@@ -26,6 +26,10 @@
     var transition = false;
     var container, panels; // initialized on document ready
 
+    function currentTranslation() {
+        return (new WebKitCSSMatrix(panels.main.css('webkitTransform')))['m41'];
+    }
+
     function clearOpenedState() {
         panels.right.removeClass('SideSwipe-open');
         panels.left.removeClass('SideSwipe-open');
@@ -42,6 +46,9 @@
 
         var width = panel.width();
         if (panel.hasClass('SideSwipe-right')) width = -width;
+
+        // already fully opened?
+        if (currentTranslation() == width) return;
 
         transition = 'open';
         container.addClass('SideSwipe-transition');
@@ -60,6 +67,12 @@
     }
 
     function close() {
+        // already fully closed?
+        if (currentTranslation() == 0) {
+            clearOpenedState();
+            return;
+        }
+
         transition = 'close';
         container.addClass('SideSwipe-transition');
 
@@ -80,7 +93,7 @@
         this.last = this.panel = this.velocity = undefined;
         this.scrolling = false;
         this.max = 0;
-        this.m41 = (new WebKitCSSMatrix(panels.main.css('webkitTransform')))['m41'];
+        this.startingTranslation = currentTranslation();
         this.distance = {};
     };
 
@@ -160,9 +173,10 @@
         // prevent scrolling
         event.preventDefault();
 
+        var newTranslation = this.startingTranslation + this.boundedX();
         panels.main.css(
             'webkitTransform',
-            'translate3d(' + (this.boundedX() + this.m41) + 'px, 0 , 0)'
+            'translate3d(' + newTranslation + 'px, 0 , 0)'
         );
     };
 
