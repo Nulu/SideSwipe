@@ -29,6 +29,12 @@
     function open(panel) {
         if (opened !== false && opened[0] !== panel[0]) return;
 
+        // ensure the right panel does not have the open class
+        // when we're opening the left panel.
+        if (opened[0] !== panels.right[0]) {
+            panels.right.removeClass('SideSwipe-open');
+        }
+
         opened = panel.addClass('SideSwipe-open');
 
         var width = panel.width();

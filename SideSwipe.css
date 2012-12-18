@@ -14,9 +14,9 @@
     position: absolute;
     z-index: 0;
     top: 0;
-    width: 82%;
     height: 100%;
     background-color: inherit;
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .overthrow-enabled .overthrow {
@@ -28,12 +28,20 @@
     left: 0;
 }
 
-/* shift right when not open to avoid catching events (seems to be a bug in iOS) */
 .SideSwipe .SideSwipe-panel.SideSwipe-right {
-    right: 100%;
-}
-.SideSwipe .SideSwipe-panel.SideSwipe-right.SideSwipe-open {
     right: 0;
+}
+
+/* When the left panel is open, shift the right panel off the screen
+ * to avoid catching events. Shouldn't be necessary, but seems to be
+ * a bug in iOS.
+ *
+ * Also, an earlier solution to this (shifting the right panel except
+ * when it's open) causes a display glitch on Android during the close
+ * transition. The new approach appears to work well for both.
+ */
+.SideSwipe .SideSwipe-panel.SideSwipe-left.SideSwipe-open ~ .SideSwipe-panel.SideSwipe-right {
+    -webkit-transform: translate3d(100%, 0, 0);
 }
 
 .SideSwipe .SideSwipe-panel.SideSwipe-open {
@@ -44,6 +52,7 @@
 .SideSwipe .SideSwipe-panel.SideSwipe-right {
     color: white;
     text-shadow: 0 1px 0 #32394A;
+    width: 82%;
 }
 
 .SideSwipe .SideSwipe-panel.SideSwipe-main {
@@ -52,7 +61,6 @@
     left: 0;
     width: 100%;
     -webkit-transition-property: -webkit-transform;
-    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .SideSwipe.SideSwipe-transition .SideSwipe-panel.SideSwipe-main {
