@@ -229,19 +229,24 @@
 
             var state = new State(event);
 
-            // wrapper to preserve binding of this and
-            // allow us to unbind the it on completion.
-            function movement(event) { return state.update(event) }
+            function cleanup() {
+                container
+                    .unbind('touchmove', movement)
+                    .removeClass('SideSwipe-moving');
+                state = undefined;
+                moving = false;
+            }
+
+            function movement(event) {
+                state.update(event);
+                if (state.scrolling) cleanup();
+            }
 
             container
                 .bind('touchmove', movement)
                 .one('touchend', function(event) {
-                    container
-                        .unbind('touchmove', movement)
-                        .removeClass('SideSwipe-moving');
-                    state.finish(event);
-                    state = undefined;
-                    moving = false;
+                    if (state) state.finish(event);
+                    cleanup();
                 });
         });
 

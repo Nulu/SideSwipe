@@ -1,6 +1,6 @@
 .SideSwipe {
+    min-height: inherit;
     background-color: #32394A;
-    overflow: hidden;
 }
 
 .SideSwipe.SideSwipe-moving {
